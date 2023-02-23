@@ -2,47 +2,35 @@
 и максимальную длину и возвращает true, если строка меньше или равна указанной длине,
  и false, если строка длиннее.  */
 const testString = 'Это пример текста';
-function isStringShorter(str, size){
-  if (str.length <= size){
-    return true;
-  }
-  return false;
-}
+const isStringShorter = (str, size) => str.length <= size;
 
-console.log(isStringShorter(testString,20));
-
-
+isStringShorter (testString, 3);
 /*Функция для проверки, является ли строка палиндромом.
 Палиндром — это слово или фраза, которые одинаково читаются и слева направо и справа налево.
 */
 
-function isPalindrome(str){
-  let ccount = 0;
-
-  // Проверьте четная или нечетная длина строки
-  if ((str.length) % 2 === 0) {
-    ccount = (str.length) / 2;
+const isPalindrome = (string) => {
+  let count = 0;
+  const tempString = string
+    .toLowerCase()
+    .replaceAll(' ', '');
+  if (tempString.length % 2 === 0) {
+    count = (tempString.length) / 2;
   } else {
-  // Если длина строки равна 1, она становится палиндромом.
-    if (str.length === 1) {
-      console.log('Строка "' + str + '" является палиндромом.');
+    if (tempString.length === 1) {
       return true;
     } else {
-    // Если длина строки нечетная, игнорируйте средний символ
-      ccount = (str.length - 1) / 2;
+      count = (tempString.length - 1) / 2;
     }
   }
-  // Проциклуем, чтобы проверить первый символ до последнего символа, а затем перейдём к следующему
-  for (let x = 0; x < ccount; x++) {
-  // Сравните символы и отбросьте их, если они не совпадают
-    if (str[x] !== str.slice(-1 - x)[0]) {
-      console.log('Строка "' + str + '" НЕ является палиндромом.');
+  for (let i = 0; i < count; i++) {
+    if (tempString[i] !== tempString.slice(-1 - i)[0]) {
       return false;
     }
   }
-  console.log('Строка "' + str + '" является палиндромом.');
   return true;
-}
+};
+
 isPalindrome('Лёша на полке клопа нашёл');
 isPalindrome('Тест');
 
@@ -50,12 +38,12 @@ isPalindrome('Тест');
  и возвращает их в виде целого положительного числа. Если в строке нет ни одной цифры,
  функция должна вернуть NaN: */
 
-function findInt (str) {
-  const cstr = str.replace(/[^a-zA-Z0-9]+/g,'');
-  return Number(cstr);
-}
+const findInt = (string) => {
+  const tempString = string.replace(/[^a-zA-Z0-9]+/g,'');
+  return parseInt(tempString, 10);
+};
 
-findInt('агент 007');
+findInt('007');
 findInt('1 кефир, 0.5 батона');
 
 /*Функция, которая принимает три параметра: исходную строку, минимальную длину и
@@ -64,12 +52,12 @@ findInt('1 кефир, 0.5 батона');
 превышает заданную длину, она не должна обрезаться. Если «добивка» слишком длинная,
 она обрезается с конца. */
 
-function addSymbols (str, minSize, addStr) {
+const addSymbol = (str, minSize, addStr) => {
   const difference = minSize - str.length;
   if (difference <= 0) {
     return str;
   }
   return addStr.slice(0, difference % addStr.length) + addStr.repeat(difference / addStr.length) + str;
-}
+};
 
-addSymbols('1', 4, '0');
+addSymbol('1', 4, '0');
