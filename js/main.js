@@ -1,5 +1,11 @@
+const PHOTO_NUMBER = 25;
+const MIN_LIKES = 15;
+const MAX_LIKES = 200;
+const COMMENT_NUMBER_MIN = 0;
+const COMMENT_NUMBER_MAX = 3;
+
 //массив описаний фото
-const DESCRIPTION_PHOTO = [
+const DESCRIPTION_PHOTOS = [
   'Взяли пса из приюта',
   'Из поколения в поколение',
   'Супергерой',
@@ -7,7 +13,7 @@ const DESCRIPTION_PHOTO = [
 ];
 
 //массив комментариев
-const COMMENT_TEXT = [
+const COMMENT_TEXTS = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
@@ -17,7 +23,7 @@ const COMMENT_TEXT = [
 ];
 
 //массив имён комментаторов
-const NAME_OF_COMMENTATOR = [
+const COMMENTATOR_NAMES = [
   'Диана',
   'Инга',
   'Белла',
@@ -25,8 +31,6 @@ const NAME_OF_COMMENTATOR = [
   'Оливия',
   'Кира',
 ];
-
-const PHOTO_NUMBER = 25;
 
 //генератор случайных чисел из диапазона
 function getRandomInteger (min, max) {
@@ -47,39 +51,34 @@ function createIdGenerator() {
   };
 }
 
+//Генератор для id комментария и фото
 const generateCommentId = createIdGenerator();
 const generatePhotoId = createIdGenerator();
 
-const createCommentsPhoto = function () {
-  const commentIndex = generateCommentId();
-  const randomAvatarIndex = getRandomInteger(1, 6);
-  const randomCommentIndex = getRandomInteger(0, COMMENT_TEXT.length - 1);
-  const randomNamesIndex = getRandomInteger(0, NAME_OF_COMMENTATOR.length - 1);
+//Создаёт комментарий
+const createCommentforPhoto = () => ({
+  id: generateCommentId(),
+  avatar: `img/avatar-${getRandomInteger(1, 6)}.svg`,
+  message: COMMENT_TEXTS[getRandomInteger(0, COMMENT_TEXTS.length - 1)],
+  name: COMMENTATOR_NAMES[getRandomInteger(0, COMMENTATOR_NAMES.length - 1)],
+});
 
+//Получаем случайное число комментариев
+const getRandomCommentsNumber = () => Array.from({length: getRandomInteger(COMMENT_NUMBER_MIN, COMMENT_NUMBER_MAX)}, createCommentforPhoto);
+
+//Создаёт фото с комментариями
+const createPhotoPost = () => {
+  const photoId = generatePhotoId();
   return {
-    id: commentIndex,
-    avatar: `img/avatar-${randomAvatarIndex}.svg`,
-    message: COMMENT_TEXT[randomCommentIndex],
-    name: NAME_OF_COMMENTATOR[randomNamesIndex],
+    id: photoId,
+    url: `photos/${photoId}.jpg`,
+    description: DESCRIPTION_PHOTOS[getRandomInteger(0, DESCRIPTION_PHOTOS.length - 1)],
+    likes: getRandomInteger(MIN_LIKES, MAX_LIKES),
+    comments: getRandomCommentsNumber(),
   };
 };
 
-const createDescriptionPhoto = function () {
-  const randomPhotoIndex = generatePhotoId();
-  const randomDescriptionIndex = getRandomInteger(0, DESCRIPTION_PHOTO.length - 1);
-  const ramdonLikesNumber = getRandomInteger(15, 200);
-  const randomComment = createCommentsPhoto();
+//Создаёт заданное количество фото с комментариями
+const createPhotoWithComments = () => Array.from({length: PHOTO_NUMBER}, createPhotoPost);
 
-  return {
-    id: randomPhotoIndex,
-    url: `photos/${randomPhotoIndex}.jpg`,
-    description: DESCRIPTION_PHOTO[randomDescriptionIndex],
-    likes: ramdonLikesNumber,
-    comments: randomComment,
-  };
-};
-
-const createDescriptionsforAll = Array.from({length: PHOTO_NUMBER}, createDescriptionPhoto);
-//eslint-disable-next-line
-console.log(createDescriptionsforAll);
-
+createPhotoWithComments();
