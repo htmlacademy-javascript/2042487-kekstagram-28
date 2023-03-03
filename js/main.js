@@ -55,12 +55,17 @@ function createIdGenerator() {
 const generateCommentId = createIdGenerator();
 const generatePhotoId = createIdGenerator();
 
+// Случайный элемент массива
+const GetRandomArrayElement = (elements) =>
+  elements[getRandomInteger(0, elements.length - 1)];
+
+
 //Создаёт комментарий
 const createCommentforPhoto = () => ({
   id: generateCommentId(),
   avatar: `img/avatar-${getRandomInteger(1, 6)}.svg`,
-  message: COMMENT_TEXTS[getRandomInteger(0, COMMENT_TEXTS.length - 1)],
-  name: COMMENTATOR_NAMES[getRandomInteger(0, COMMENTATOR_NAMES.length - 1)],
+  message: GetRandomArrayElement(COMMENT_TEXTS),
+  name: GetRandomArrayElement(COMMENTATOR_NAMES),
 });
 
 //Получаем случайное число комментариев
@@ -72,7 +77,7 @@ const createPhotoPost = () => {
   return {
     id: photoId,
     url: `photos/${photoId}.jpg`,
-    description: DESCRIPTION_PHOTOS[getRandomInteger(0, DESCRIPTION_PHOTOS.length - 1)],
+    description: GetRandomArrayElement(DESCRIPTION_PHOTOS),
     likes: getRandomInteger(MIN_LIKES, MAX_LIKES),
     comments: getRandomCommentsNumber(),
   };
