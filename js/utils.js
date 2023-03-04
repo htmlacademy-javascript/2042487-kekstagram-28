@@ -21,6 +21,4 @@ function createIdGenerator() {
   };
 }
 
-export {GetRandomArrayElement};
-export {getRandomInteger};
-export {createIdGenerator};
+export {GetRandomArrayElement, getRandomInteger, createIdGenerator};

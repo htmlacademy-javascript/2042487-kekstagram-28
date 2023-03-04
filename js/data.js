@@ -1,6 +1,4 @@
-import {getRandomInteger} from './utils.js';
-import {GetRandomArrayElement} from './utils.js';
-import {createIdGenerator} from './utils.js';
+import {getRandomInteger, GetRandomArrayElement, createIdGenerator} from './utils.js';
 
 const PHOTO_NUMBER = 25;
 const MIN_LIKES = 15;
