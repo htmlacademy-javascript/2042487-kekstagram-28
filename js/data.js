@@ -39,7 +39,7 @@ const generateCommentId = createIdGenerator();
 const generatePhotoId = createIdGenerator();
 
 //Создаёт комментарий
-const createCommentforPhoto = () => ({
+const createCommentForPhoto = () => ({
   id: generateCommentId(),
   avatar: `img/avatar-${getRandomInteger(1, 6)}.svg`,
   message: GetRandomArrayElement(COMMENT_TEXTS),
@@ -47,8 +47,8 @@ const createCommentforPhoto = () => ({
 });
 
 //Получаем случайное число комментариев
-const getRandomCommentsNumber = () =>
-  Array.from({length: getRandomInteger(COMMENT_NUMBER_MIN, COMMENT_NUMBER_MAX)}, createCommentforPhoto);
+const getRandomNumberComments = () =>
+  Array.from({length: getRandomInteger(COMMENT_NUMBER_MIN, COMMENT_NUMBER_MAX)}, createCommentForPhoto);
 
 //Создаёт фото с комментариями
 const createPhotoPost = () => {
@@ -58,7 +58,7 @@ const createPhotoPost = () => {
     url: `photos/${photoId}.jpg`,
     description: GetRandomArrayElement(DESCRIPTION_PHOTOS),
     likes: getRandomInteger(MIN_LIKES, MAX_LIKES),
-    comments: getRandomCommentsNumber(),
+    comments: getRandomNumberComments(),
   };
 };
 
