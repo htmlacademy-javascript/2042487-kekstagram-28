@@ -3,6 +3,7 @@ import {getRandomInteger, GetRandomArrayElement, createIdGenerator} from './util
 const PHOTO_NUMBER = 25;
 const MIN_LIKES = 15;
 const MAX_LIKES = 200;
+const AVATAR_COUNT = 6;
 const COMMENT_NUMBER_MIN = 0;
 const COMMENT_NUMBER_MAX = 3;
 
@@ -49,7 +50,7 @@ const generatePhotoId = createIdGenerator();
 //Создаёт комментарий
 const createCommentForPhoto = () => ({
   id: generateCommentId(),
-  avatar: `img/avatar-${getRandomInteger(1, 6)}.svg`,
+  avatar: `img/avatar-${getRandomInteger(1, AVATAR_COUNT)}.svg`,
   message: GetRandomArrayElement(COMMENT_TEXTS),
   name: GetRandomArrayElement(COMMENTATOR_NAMES),
 });
@@ -71,6 +72,6 @@ const createPhotoPost = () => {
 };
 
 //Создаёт заданное количество фото с комментариями
-const createPhotoWithComments = () => Array.from({length: PHOTO_NUMBER}, createPhotoPost);
+const getPhotoWithComments = () => Array.from({length: PHOTO_NUMBER}, createPhotoPost);
 
-export {createPhotoWithComments};
+export {getPhotoWithComments};
