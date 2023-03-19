@@ -1,6 +1,10 @@
-import {getRandomInteger, GetRandomArrayElement, createIdGenerator} from './utils.js';
+import {getRandomInteger, GetRandomArrayElement, createRandomIdFromRangeGenerator} from './utils.js';
 
 const PHOTO_NUMBER = 25;
+const PHOTO_ID_START = 1;
+const PHOTO_ID_END = 25;
+const COMMENT_ID_START = 1;
+const COMMENT_ID_END = 100;
 const MIN_LIKES = 15;
 const MAX_LIKES = 200;
 const AVATAR_COUNT = 6;
@@ -44,8 +48,8 @@ const COMMENTATOR_NAMES = [
 ];
 
 //Генератор для id комментария и фото
-const generateCommentId = createIdGenerator();
-const generatePhotoId = createIdGenerator();
+const generatePhotoId = createRandomIdFromRangeGenerator(PHOTO_ID_START, PHOTO_ID_END);
+const generateCommentId = createRandomIdFromRangeGenerator(COMMENT_ID_START, COMMENT_ID_END);
 
 //Создаёт комментарий
 const createCommentForPhoto = () => ({
@@ -62,6 +66,7 @@ const getRandomNumberComments = () =>
 //Создаёт фото с комментариями
 const createPhotoPost = () => {
   const photoId = generatePhotoId();
+
   return {
     id: photoId,
     url: `photos/${photoId}.jpg`,
@@ -73,5 +78,5 @@ const createPhotoPost = () => {
 
 //Создаёт заданное количество фото с комментариями
 const getPhotoWithComments = () => Array.from({length: PHOTO_NUMBER}, createPhotoPost);
-
+console.log (getPhotoWithComments());
 export {getPhotoWithComments};
