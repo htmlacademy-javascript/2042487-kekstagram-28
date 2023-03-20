@@ -37,7 +37,7 @@ const renderFullSizePicture = (picture) => {
   likesCount.textContent = picture.likes;
   socialCaption.textContent = picture.description;
   commentCount.textContent = picture.comments.length;
-
+  document.addEventListener('keydown', onDocumentKeydown);
   renderComments(picture.comments);
 };
 
@@ -46,6 +46,7 @@ const renderFullSizePicture = (picture) => {
 const closeFullSizePicture = () => {
   bigPicture.classList.add('hidden');
   body.classList.remove('modal-open');
+  document.removeEventListener('keydown', onDocumentKeydown);
 };
 
 // Закрытие фото кликом по кнопке
@@ -53,5 +54,13 @@ const closeFullSizePicture = () => {
 bigPictureCancel.addEventListener('click', () => {
   closeFullSizePicture();
 });
+
+// Закрытие с помощью  Esc
+function onDocumentKeydown(evt) {
+  if (evt.key === 'Escape') {
+    evt.preventDefault();
+    closeFullSizePicture();
+  }
+}
 
 export {renderFullSizePicture};

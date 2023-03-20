@@ -64,8 +64,8 @@ const getRandomNumberComments = () =>
   Array.from({length: getRandomInteger(COMMENT_NUMBER_MIN, COMMENT_NUMBER_MAX)}, createCommentForPhoto);
 
 //Создаёт фото с комментариями
-const createPhotoPost = () => {
-  const photoId = generatePhotoId();
+const createPhotoPost = function () {
+  const photoId = 5;
 
   return {
     id: photoId,
