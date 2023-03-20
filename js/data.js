@@ -17,6 +17,14 @@ const DESCRIPTION_PHOTOS = [
   'Из поколения в поколение',
   'Супергерой',
   'Добро',
+  'Отдай мне шоколад, и никто не пострадает,',
+  'Это моё довольно голодное лицо.',
+  'Не мечтай об этом. Тренируйтесь для этого.',
+  'Счастье никогда не выходит из моды.',
+  'Улыбайся больше, меньше сожалей.',
+  'Узкая талия, красивое лицо.',
+  'Врасплох, но в точку!',
+  'Смотрюсь живым.',
 ];
 
 //массив комментариев
@@ -27,6 +35,11 @@ const COMMENT_TEXTS = [
   'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.',
   'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
+  'When you took the photo?',
+  'What is in the photo?!',
+  'What is happening!!??',
+  'Why you took the photo?',
+  'Why you decided to show the picture to your friend?!',
 ];
 
 //массив имён комментаторов
@@ -51,6 +64,7 @@ const COMMENTATOR_NAMES = [
 const generatePhotoId = createRandomIdFromRangeGenerator(PHOTO_ID_START, PHOTO_ID_END);
 const generateCommentId = createRandomIdFromRangeGenerator(COMMENT_ID_START, COMMENT_ID_END);
 
+let pictureItems;
 //Создаёт комментарий
 const createCommentForPhoto = () => ({
   id: generateCommentId(),
@@ -65,7 +79,7 @@ const getRandomNumberComments = () =>
 
 //Создаёт фото с комментариями
 const createPhotoPost = function () {
-  const photoId = 5;
+  const photoId = generatePhotoId();
 
   return {
     id: photoId,
@@ -76,7 +90,9 @@ const createPhotoPost = function () {
   };
 };
 
-//Создаёт заданное количество фото с комментариями
-const getPhotoWithComments = () => Array.from({length: PHOTO_NUMBER}, createPhotoPost);
-console.log (getPhotoWithComments());
+//Создаёт заданное количество фото с комментариями, если не создавали ранее.
+function getPhotoWithComments() {
+  return pictureItems || (pictureItems = Array.from({length: PHOTO_NUMBER}, createPhotoPost));
+}
+
 export {getPhotoWithComments};

@@ -1,5 +1,3 @@
-import {getPhotoWithComments} from './data.js';
-
 //Находим место добавления миниатюр
 const container = document.querySelector('.pictures');
 const picturesTitle = container.querySelector('.pictures__title');
@@ -7,9 +5,9 @@ picturesTitle.classList.remove('visually-hidden');
 //Находим содержимое шаблона
 const thumbnailsTemplate = document.querySelector('#picture').content.querySelector('.picture');
 //Присваеваем результат генерации фото переменной
-const pictureItems = getPhotoWithComments();
+// const pictureItems = getPhotoWithComments();
 
-const renderThumbnails = () => {
+const renderThumbnails = (pictureItems) => {
   const newFragment = document.createDocumentFragment();
 
   pictureItems.forEach(({url, comments, description, likes, id}) => {

@@ -3,8 +3,8 @@ const bigPictureImg = bigPicture.querySelector('.big-picture__img').querySelecto
 const likesCount = bigPicture.querySelector('.likes-count');
 const commentCount = bigPicture.querySelector('.comments-count');
 const bigPictureCancel = bigPicture.querySelector('.big-picture__cancel');
-const socialComments = document.querySelector('.social__comments');
-const socialComment = socialComments.querySelector('.social__comment');
+const commentsList = document.querySelector('.social__comments');
+const socialComment = commentsList.querySelector('.social__comment');
 const socialCommentCount = bigPicture.querySelector('.social__comment-count');
 const socialCaption = bigPicture.querySelector('.social__caption');
 const commentsLoader = bigPicture.querySelector('.comments-loader');
@@ -22,7 +22,7 @@ const renderComments = (comments) => {
     commentElement.querySelector('.social__text').textContent = comment.message;
     commentsFragment.append(commentElement);
   });
-  socialComments.append(commentsFragment);
+  commentsList.append(commentsFragment);
 };
 
 // Генерация большого фото
@@ -30,7 +30,7 @@ const renderComments = (comments) => {
 const renderFullSizePicture = (picture) => {
   bigPicture.classList.remove('hidden');
   body.classList.add('modal-open');
-  socialComments.innerHTML = '';
+  commentsList.innerHTML = '';
   socialCommentCount.classList.add('hidden');
   commentsLoader.classList.add('hidden');
   bigPictureImg.src = picture.url;
