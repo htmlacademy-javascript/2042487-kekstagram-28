@@ -9,7 +9,7 @@ const MIN_LIKES = 15;
 const MAX_LIKES = 200;
 const AVATAR_COUNT = 6;
 const COMMENT_NUMBER_MIN = 0;
-const COMMENT_NUMBER_MAX = 3;
+const COMMENT_NUMBER_MAX = 15;
 
 //массив описаний фото
 const DESCRIPTION_PHOTOS = [
