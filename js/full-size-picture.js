@@ -9,58 +9,96 @@ const socialCommentCount = bigPicture.querySelector('.social__comment-count');
 const socialCaption = bigPicture.querySelector('.social__caption');
 const commentsLoader = bigPicture.querySelector('.comments-loader');
 const body = document.body;
+const ON_LOAD_COMMENTS_NUMBER = 5;
+let actualCommentsCount = ON_LOAD_COMMENTS_NUMBER;
 
 
-// Генерация комментариев для большого фото
+// Открытие модального окна
 
-const renderComments = (comments) => {
-  const commentsFragment = document.createDocumentFragment();
-  comments.forEach((comment) => {
-    const commentElement = socialComment.cloneNode(true);
-    commentElement.querySelector('.social__picture').src = comment.avatar;
-    commentElement.querySelector('.social__picture').alt = comment.name;
-    commentElement.querySelector('.social__text').textContent = comment.message;
-    commentsFragment.append(commentElement);
-  });
-  commentsList.append(commentsFragment);
-};
-
-// Генерация большого фото
-
-const renderFullSizePicture = (picture) => {
+const openModal = () => {
   bigPicture.classList.remove('hidden');
   body.classList.add('modal-open');
   commentsList.innerHTML = '';
-  socialCommentCount.classList.add('hidden');
-  commentsLoader.classList.add('hidden');
-  bigPictureImg.src = picture.url;
-  likesCount.textContent = picture.likes;
-  socialCaption.textContent = picture.description;
-  commentCount.textContent = picture.comments.length;
   document.addEventListener('keydown', onDocumentKeydown);
-  renderComments(picture.comments);
 };
 
-// Функция закрытия большого фото
 
-const closeFullSizePicture = () => {
+// Создание комментария для модального окна
+
+const createComment = (comment) => {
+  const commentElement = socialComment.cloneNode(true);
+  commentElement.querySelector('.social__picture').src = comment.avatar;
+  commentElement.querySelector('.social__picture').alt = comment.name;
+  commentElement.querySelector('.social__text').textContent = comment.message;
+  return commentElement;
+};
+
+
+// Отрисовка комментариев модального окна
+
+const renderComments = (comments) => {
+  const commentsFragment = document.createDocumentFragment();
+  const moreComments = () => {
+    actualCommentsCount += ON_LOAD_COMMENTS_NUMBER;
+    renderComments(comments);
+  };
+  comments.slice(0, actualCommentsCount).forEach((comment) => {
+    commentsFragment.append(createComment(comment));
+  });
+  commentsList.innerHTML = '';
+  commentsList.append(commentsFragment);
+
+  if (actualCommentsCount >= comments.length) {
+    actualCommentsCount = comments.length;
+    commentsLoader.classList.add('hidden');
+
+  } else {
+    commentsLoader.classList.remove('hidden');
+    commentsLoader.addEventListener('click', moreComments, {once: true});
+  }
+  socialCommentCount.textContent = `${actualCommentsCount} из ${comments.length} комментариев`;
+};
+
+
+// Функция закрытия окна большого изображения
+
+const closeModal = () => {
   bigPicture.classList.add('hidden');
   body.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
 };
 
-// Закрытие фото кликом по кнопке
+
+// Закрытие окна кликом по кнопке
 
 bigPictureCancel.addEventListener('click', () => {
-  closeFullSizePicture();
+  closeModal();
 });
 
-// Закрытие с помощью  Esc
+
+// Закрытие окна с помощью  Esc
+
 function onDocumentKeydown(evt) {
   if (evt.key === 'Escape') {
     evt.preventDefault();
-    closeFullSizePicture();
+    closeModal();
   }
 }
+
+
+// Отрисовка большого фото
+
+const renderFullSizePicture = (picture) => {
+  openModal();
+  actualCommentsCount = ON_LOAD_COMMENTS_NUMBER;
+  commentsList.innerHTML = '';
+  bigPictureImg.src = picture.url;
+  likesCount.textContent = picture.likes;
+  socialCaption.textContent = picture.description;
+  commentCount.textContent = picture.comments.length;
+  renderComments(picture.comments);
+
+  document.addEventListener('keydown', onDocumentKeydown);
+};
 
 export {renderFullSizePicture};
