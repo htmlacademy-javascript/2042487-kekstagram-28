@@ -12,17 +12,6 @@ const body = document.body;
 const ON_LOAD_COMMENTS_NUMBER = 5;
 let actualCommentsCount = ON_LOAD_COMMENTS_NUMBER;
 
-
-// Открытие модального окна
-
-const openModal = () => {
-  bigPicture.classList.remove('hidden');
-  body.classList.add('modal-open');
-  commentsList.innerHTML = '';
-  document.addEventListener('keydown', onDocumentKeydown);
-};
-
-
 // Создание комментария для модального окна
 
 const createComment = (comment) => {
@@ -32,7 +21,6 @@ const createComment = (comment) => {
   commentElement.querySelector('.social__text').textContent = comment.message;
   return commentElement;
 };
-
 
 // Отрисовка комментариев модального окна
 
@@ -59,6 +47,27 @@ const renderComments = (comments) => {
   socialCommentCount.textContent = `${actualCommentsCount} из ${comments.length} комментариев`;
 };
 
+// Отрисовка большого фото
+
+const renderFullSizePicture = (picture) => {
+  actualCommentsCount = ON_LOAD_COMMENTS_NUMBER;
+  commentsList.innerHTML = '';
+  bigPictureImg.src = picture.url;
+  likesCount.textContent = picture.likes;
+  socialCaption.textContent = picture.description;
+  commentCount.textContent = picture.comments.length;
+};
+
+// Открытие модального окна
+
+const openModal = (picture) => {
+  bigPicture.classList.remove('hidden');
+  body.classList.add('modal-open');
+  commentsList.innerHTML = '';
+  document.addEventListener('keydown', onDocumentKeydown);
+  renderFullSizePicture (picture);
+  renderComments(picture.comments);
+};
 
 // Функция закрытия окна большого изображения
 
@@ -85,20 +94,4 @@ function onDocumentKeydown(evt) {
   }
 }
 
-
-// Отрисовка большого фото
-
-const renderFullSizePicture = (picture) => {
-  openModal();
-  actualCommentsCount = ON_LOAD_COMMENTS_NUMBER;
-  commentsList.innerHTML = '';
-  bigPictureImg.src = picture.url;
-  likesCount.textContent = picture.likes;
-  socialCaption.textContent = picture.description;
-  commentCount.textContent = picture.comments.length;
-  renderComments(picture.comments);
-
-  document.addEventListener('keydown', onDocumentKeydown);
-};
-
-export {renderFullSizePicture};
+export {openModal};

@@ -1,4 +1,4 @@
-import {renderFullSizePicture} from './full-size-picture.js';
+import {openModal} from './full-size-picture.js';
 import {renderThumbnails} from './thumbnails.js';
 
 
@@ -14,7 +14,7 @@ const renderGallary = (pictures) => {
     const picture = pictures.find(
       (item) => item.id === +thumbnail.dataset.thumbnailId
     );
-    renderFullSizePicture(picture);
+    openModal(picture);
   });
 };
 
