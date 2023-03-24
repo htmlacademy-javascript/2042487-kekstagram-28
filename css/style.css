@@ -290,6 +290,7 @@ main {
   text-align: center;
 }
 
+
 .img-upload__form {
   position: relative;
   min-height: 569px;
@@ -300,6 +301,24 @@ main {
   background-position: center;
 
   border: none;
+}
+
+.img-upload__field-wrapper--error {
+  background-color:rgba(0, 0, 0, 0.7);
+  border-radius: 10px;
+  border: 1px solid #999999;
+  padding: 1em;
+  max-width: 400px;
+  color: #ffe753;
+  position: absolute;
+  top: 76%;
+  z-index: 99;
+  transition: font-size 0.3s, background-color 2s;
+}
+
+.img-upload__field-wrapper--error:hover {
+  background-color:rgba(0, 0, 0, 1);
+  font-size: 21px;
 }
 
 .img-upload__start {
