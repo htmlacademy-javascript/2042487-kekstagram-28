@@ -1,3 +1,5 @@
+const ON_LOAD_COMMENTS_NUMBER = 5;
+let actualCommentsCount = ON_LOAD_COMMENTS_NUMBER;
 const bigPicture = document.querySelector('.big-picture');
 const bigPictureImg = bigPicture.querySelector('.big-picture__img').querySelector('img');
 const likesCount = bigPicture.querySelector('.likes-count');
@@ -9,18 +11,6 @@ const socialCommentCount = bigPicture.querySelector('.social__comment-count');
 const socialCaption = bigPicture.querySelector('.social__caption');
 const commentsLoader = bigPicture.querySelector('.comments-loader');
 const body = document.body;
-const ON_LOAD_COMMENTS_NUMBER = 5;
-let actualCommentsCount = ON_LOAD_COMMENTS_NUMBER;
-
-
-// Открытие модального окна
-
-const openModal = () => {
-  bigPicture.classList.remove('hidden');
-  body.classList.add('modal-open');
-  commentsList.innerHTML = '';
-  document.addEventListener('keydown', onDocumentKeydown);
-};
 
 
 // Создание комментария для модального окна
@@ -60,11 +50,38 @@ const renderComments = (comments) => {
 };
 
 
+// Отрисовка большого фото
+
+const renderFullSizePicture = (picture) => {
+  actualCommentsCount = ON_LOAD_COMMENTS_NUMBER;
+  commentsList.innerHTML = '';
+  bigPictureImg.src = picture.url;
+  likesCount.textContent = picture.likes;
+  socialCaption.textContent = picture.description;
+  commentCount.textContent = picture.comments.length;
+};
+
+
+// Открытие модального окна
+
+const openModal = (picture) => {
+  bigPicture.classList.remove('hidden');
+  body.classList.add('modal-open');
+  commentsList.innerHTML = '';
+
+  document.addEventListener('keydown', onDocumentKeydown);
+
+  renderFullSizePicture (picture);
+  renderComments(picture.comments);
+};
+
+
 // Функция закрытия окна большого изображения
 
 const closeModal = () => {
   bigPicture.classList.add('hidden');
   body.classList.remove('modal-open');
+
   document.removeEventListener('keydown', onDocumentKeydown);
 };
 
@@ -85,20 +102,4 @@ function onDocumentKeydown(evt) {
   }
 }
 
-
-// Отрисовка большого фото
-
-const renderFullSizePicture = (picture) => {
-  openModal();
-  actualCommentsCount = ON_LOAD_COMMENTS_NUMBER;
-  commentsList.innerHTML = '';
-  bigPictureImg.src = picture.url;
-  likesCount.textContent = picture.likes;
-  socialCaption.textContent = picture.description;
-  commentCount.textContent = picture.comments.length;
-  renderComments(picture.comments);
-
-  document.addEventListener('keydown', onDocumentKeydown);
-};
-
-export {renderFullSizePicture};
+export {openModal};
