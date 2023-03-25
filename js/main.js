@@ -1,6 +1,6 @@
 import {getPhotoWithComments} from './data.js';
-import {renderGallary} from './gallary.js';
+import {renderGallery} from './gallery.js';
 import './hidden-favicon.js';
 import './form.js';
 
-renderGallary(getPhotoWithComments());
+renderGallery(getPhotoWithComments());

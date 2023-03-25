@@ -1,3 +1,5 @@
+const ON_LOAD_COMMENTS_NUMBER = 5;
+let actualCommentsCount = ON_LOAD_COMMENTS_NUMBER;
 const bigPicture = document.querySelector('.big-picture');
 const bigPictureImg = bigPicture.querySelector('.big-picture__img').querySelector('img');
 const likesCount = bigPicture.querySelector('.likes-count');
@@ -9,8 +11,7 @@ const socialCommentCount = bigPicture.querySelector('.social__comment-count');
 const socialCaption = bigPicture.querySelector('.social__caption');
 const commentsLoader = bigPicture.querySelector('.comments-loader');
 const body = document.body;
-const ON_LOAD_COMMENTS_NUMBER = 5;
-let actualCommentsCount = ON_LOAD_COMMENTS_NUMBER;
+
 
 // Создание комментария для модального окна
 
@@ -21,6 +22,7 @@ const createComment = (comment) => {
   commentElement.querySelector('.social__text').textContent = comment.message;
   return commentElement;
 };
+
 
 // Отрисовка комментариев модального окна
 
@@ -47,6 +49,7 @@ const renderComments = (comments) => {
   socialCommentCount.textContent = `${actualCommentsCount} из ${comments.length} комментариев`;
 };
 
+
 // Отрисовка большого фото
 
 const renderFullSizePicture = (picture) => {
@@ -58,22 +61,27 @@ const renderFullSizePicture = (picture) => {
   commentCount.textContent = picture.comments.length;
 };
 
+
 // Открытие модального окна
 
 const openModal = (picture) => {
   bigPicture.classList.remove('hidden');
   body.classList.add('modal-open');
   commentsList.innerHTML = '';
+
   document.addEventListener('keydown', onDocumentKeydown);
+
   renderFullSizePicture (picture);
   renderComments(picture.comments);
 };
+
 
 // Функция закрытия окна большого изображения
 
 const closeModal = () => {
   bigPicture.classList.add('hidden');
   body.classList.remove('modal-open');
+
   document.removeEventListener('keydown', onDocumentKeydown);
 };
 

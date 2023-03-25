@@ -4,7 +4,7 @@ import {renderThumbnails} from './thumbnails.js';
 
 const container = document.querySelector('.pictures');
 
-const renderGallary = (pictures) => {
+const renderGallery = (pictures) => {
   renderThumbnails(pictures);
   container.addEventListener('click', (evt) => {
     const thumbnail = evt.target.closest('[data-thumbnail-id]');
@@ -18,4 +18,4 @@ const renderGallary = (pictures) => {
   });
 };
 
-export {renderGallary};
+export {renderGallery};
