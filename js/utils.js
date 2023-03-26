@@ -1,4 +1,5 @@
-//генератор случайных чисел из диапазона
+// Генератор случайных чисел из диапазона
+
 function getRandomInteger (min, max) {
   const lower = Math.ceil(Math.min(Math.abs(min), Math.abs(max)));
   const upper = Math.floor(Math.max(Math.abs(min), Math.abs(max)));
@@ -6,6 +7,7 @@ function getRandomInteger (min, max) {
 
   return Math.floor(result);
 }
+
 
 // Генератор для получения уникальных идентификаторов из указанного диапазона
 
@@ -26,10 +28,13 @@ function createRandomIdFromRangeGenerator(min, max) {
 }
 
 // Случайный элемент массива
+
 const GetRandomArrayElement = (elements) =>
   elements[getRandomInteger(0, elements.length - 1)];
 
-//генератор уникальных id
+
+// Генератор уникальных id
+
 function createIdGenerator() {
   let lastGeneratedId = 0;
 
