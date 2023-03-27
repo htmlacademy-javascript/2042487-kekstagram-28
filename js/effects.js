@@ -113,11 +113,7 @@ const onEffectChange = (evt) => {
 const onSliderUpdate = () => {
   const sliderValue = effectSlider.noUiSlider.get();
   effectValue.value = sliderValue;
-  if (isDefault()) {
-    previewImage.style.filter = DEFAULT_EFFECT.filter;
-  } else {
-    previewImage.style.filter = `${currentEffect.filter}(${sliderValue}${currentEffect.unit})`;
-  }
+  previewImage.style.filter = isDefault() ? DEFAULT_EFFECT.style : `${currentEffect.style}(${sliderValue}${currentEffect.unit})`;
 };
 
 
