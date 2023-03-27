@@ -9,6 +9,10 @@ const scaleValueInput = document.querySelector('.scale__control--value');
 const previewImage = document.querySelector('.img-upload__preview img');
 
 
+// Получаем значение маштаба
+
+const getScaleValue = () => parseInt(scaleValueInput.value, 10);
+
 //Маштабирование превью
 
 const scaleImage = (value) => {
@@ -19,7 +23,7 @@ const scaleImage = (value) => {
 //Уменьшение превью
 
 const minifyImage = () => {
-  const currentValue = parseInt(scaleValueInput.value, 10);
+  const currentValue = getScaleValue();
   let newValue = currentValue - STEP_SCALE;
   if (newValue < MIN_SCALE) {
     newValue = MIN_SCALE;
@@ -30,7 +34,7 @@ const minifyImage = () => {
 //Увеличение превью
 
 const magnifyImage = () => {
-  const currentValue = parseInt(scaleValueInput.value, 10);
+  const currentValue = getScaleValue();
   let newValue = currentValue + STEP_SCALE;
   if (newValue > MAX_SCALE) {
     newValue = MAX_SCALE;
