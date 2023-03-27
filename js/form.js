@@ -73,7 +73,7 @@ const formatStringtoArray = (string) => {
 // Функция, проверяющая хэш-тег
 
 const isValidHashtag = (string) => {
-  const pattern = /^#[a-zа-яё0-9]{0,}$/i;
+  const pattern = /^#[a-zа-яё0-9]{1,}$/i;
   return pattern.test(string);
 };
 

@@ -8,10 +8,15 @@ const magnifyButton = document.querySelector('.scale__control--bigger');
 const scaleValueInput = document.querySelector('.scale__control--value');
 const previewImage = document.querySelector('.img-upload__preview img');
 
+
+//Маштабирование превью
+
 const scaleImage = (value) => {
   previewImage.style.transform = `scale(${value / 100})`;
   scaleValueInput.value = `${value}%`;
 };
+
+//Уменьшение превью
 
 const minifyImage = () => {
   const currentValue = parseInt(scaleValueInput.value, 10);
@@ -21,6 +26,8 @@ const minifyImage = () => {
   }
   scaleImage(newValue);
 };
+
+//Увеличение превью
 
 const magnifyImage = () => {
   const currentValue = parseInt(scaleValueInput.value, 10);
