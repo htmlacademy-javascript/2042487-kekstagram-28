@@ -24,6 +24,7 @@ const pristine = new Pristine (form, {
 // Закрытие окна редактирования
 
 const closeModal = () => {
+  resetScale();
   resetEffect();
   form.reset();
   pristine.reset();
@@ -40,7 +41,6 @@ const closeModal = () => {
 const openModal = () => {
   imageOverlay.classList.remove('hidden');
   body.classList.add('modal-open');
-  resetScale();
 
   uploadCancel.addEventListener('click', closeModal);
   document.addEventListener('keydown', onDocumentKeydown);
