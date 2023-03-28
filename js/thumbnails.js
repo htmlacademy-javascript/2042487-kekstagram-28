@@ -1,12 +1,15 @@
-//Находим место добавления миниатюр
-
+// Находим место добавления миниатюр
 
 const container = document.querySelector('.pictures');
+
+
+// Показываем загаловок страницы
+
 const picturesTitle = container.querySelector('.pictures__title');
 picturesTitle.classList.remove('visually-hidden');
 
 
-//Находим содержимое шаблона
+// Находим содержимое шаблона
 
 const thumbnailsTemplate = document.querySelector('#picture').content.querySelector('.picture');
 

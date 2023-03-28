@@ -9,9 +9,11 @@ const MIN_LIKES = 15;
 const MAX_LIKES = 200;
 const AVATAR_COUNT = 6;
 const COMMENT_NUMBER_MIN = 0;
-const COMMENT_NUMBER_MAX = 15;
+const COMMENT_NUMBER_MAX = 25;
 
-//массив описаний фото
+
+// Mассив описаний фото
+
 const DESCRIPTION_PHOTOS = [
   'Взяли пса из приюта',
   'Из поколения в поколение',
@@ -27,7 +29,9 @@ const DESCRIPTION_PHOTOS = [
   'Смотрюсь живым.',
 ];
 
-//массив комментариев
+
+// Mассив комментариев
+
 const COMMENT_TEXTS = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
@@ -42,7 +46,9 @@ const COMMENT_TEXTS = [
   'Why you decided to show the picture to your friend?!',
 ];
 
-//массив имён комментаторов
+
+// Mассив имён комментаторов
+
 const COMMENTATOR_NAMES = [
   'Диана',
   'Инга',
@@ -60,12 +66,17 @@ const COMMENTATOR_NAMES = [
   'Роман',
 ];
 
-//Генератор для id комментария и фото
+
+// Генератор для id комментария и фото
+
 const generatePhotoId = createRandomIdFromRangeGenerator(PHOTO_ID_START, PHOTO_ID_END);
 const generateCommentId = createRandomIdFromRangeGenerator(COMMENT_ID_START, COMMENT_ID_END);
 
 let pictureItems;
-//Создаёт комментарий
+
+
+// Создаёт комментарий
+
 const createCommentForPhoto = () => ({
   id: generateCommentId(),
   avatar: `img/avatar-${getRandomInteger(1, AVATAR_COUNT)}.svg`,
@@ -73,11 +84,15 @@ const createCommentForPhoto = () => ({
   name: GetRandomArrayElement(COMMENTATOR_NAMES),
 });
 
-//Получаем случайное число комментариев
+
+// Получаем случайное число комментариев
+
 const getRandomNumberComments = () =>
   Array.from({length: getRandomInteger(COMMENT_NUMBER_MIN, COMMENT_NUMBER_MAX)}, createCommentForPhoto);
 
-//Создаёт фото с комментариями
+
+// Создаёт фото с комментариями
+
 const createPhotoPost = function () {
   const photoId = generatePhotoId();
 
@@ -90,7 +105,9 @@ const createPhotoPost = function () {
   };
 };
 
-//Создаёт заданное количество фото с комментариями, если не создавали ранее.
+
+// Создаёт заданное количество фото с комментариями, если не создавали ранее
+
 function getPhotoWithComments() {
   return pictureItems || (pictureItems = Array.from({length: PHOTO_NUMBER}, createPhotoPost));
 }

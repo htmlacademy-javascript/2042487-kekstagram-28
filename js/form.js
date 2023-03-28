@@ -1,3 +1,7 @@
+import {resetScale} from './scale.js';
+import {resetEffect} from './effects.js';
+
+
 const MAX_HASHTAG_LENGTH = 20;
 const MAX_HASHTAG_COUNT = 5;
 
@@ -16,9 +20,12 @@ const pristine = new Pristine (form, {
   errorTextClass: 'img-upload__field-wrapper--error'
 });
 
+
 // Закрытие окна редактирования
 
 const closeModal = () => {
+  resetScale();
+  resetEffect();
   form.reset();
   pristine.reset();
   imageOverlay.classList.add('hidden');
@@ -27,6 +34,7 @@ const closeModal = () => {
   uploadCancel.removeEventListener('click', closeModal);
   document.removeEventListener('keydown', onDocumentKeydown);
 };
+
 
 // Открытие окна редактирования
 
@@ -38,9 +46,11 @@ const openModal = () => {
   document.addEventListener('keydown', onDocumentKeydown);
 };
 
+
 // Есть фокус на поле ввода
 
 const isFocusOnInput = () => document.activeElement === hashtagInput || document.activeElement === commentInput;
+
 
 // Закрытие окна нажатием клавиши ESC
 
@@ -51,6 +61,7 @@ function onDocumentKeydown (evt) {
   }
 }
 
+
 // Форматирует строку
 
 const formatStringtoArray = (string) => {
@@ -58,12 +69,14 @@ const formatStringtoArray = (string) => {
   return tags;
 };
 
+
 // Функция, проверяющая хэш-тег
 
 const isValidHashtag = (string) => {
-  const pattern = /^#[a-zа-яё0-9]{0,}$/i;
+  const pattern = /^#[a-zа-яё0-9]{1,}$/i;
   return pattern.test(string);
 };
+
 
 // Проверка хэш-тегов по шаблону
 
@@ -72,12 +85,15 @@ const isValidPattern = (string) => {
   return tags.every(isValidHashtag);
 };
 
+
 // Проверка хэш-тегов по длинне
 
 const isValidLenghth = (string) => {
   const tags = formatStringtoArray(string);
   return tags.every(((tag) => tag.length <= MAX_HASHTAG_LENGTH));
 };
+
+
 // Проверка строки на повторяющиеся хэш-теги
 
 const isUniqueTags = (string) => {
@@ -86,6 +102,7 @@ const isUniqueTags = (string) => {
   return lowerCaseTags.length === new Set(lowerCaseTags).size;
 };
 
+
 // Проверка количества хэш-тегов
 
 const isNormalCount = (string) => {
@@ -93,12 +110,14 @@ const isNormalCount = (string) => {
   return tags.length <= MAX_HASHTAG_COUNT;
 };
 
+
 // Создание валидаторов
 
 pristine.addValidator(hashtagInput, isValidPattern, 'После # должна быть буква или цифра, не может содержать пробелы и спецсимволы!');
 pristine.addValidator(hashtagInput, isNormalCount, 'Нельзя указать больше пяти хэш-тегов!');
 pristine.addValidator(hashtagInput, isUniqueTags, 'Хэш-теги повторяются!');
 pristine.addValidator(hashtagInput, isValidLenghth, 'Слишком длинный тег!');
+
 
 // Валидация формы
 
