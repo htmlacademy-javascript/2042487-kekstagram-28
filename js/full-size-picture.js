@@ -44,7 +44,7 @@ const renderComments = (comments) => {
 
   } else {
     commentsLoader.classList.remove('hidden');
-    commentsLoader.addEventListener('click', moreComments, {once: true});
+    commentsLoader.onclick = moreComments;
   }
   socialCommentCount.textContent = `${actualCommentsCount} из ${comments.length} комментариев`;
 };
@@ -83,6 +83,7 @@ const closeModal = () => {
   body.classList.remove('modal-open');
 
   document.removeEventListener('keydown', onDocumentKeydown);
+  commentsLoader.onclick = null;
 };
 
 
