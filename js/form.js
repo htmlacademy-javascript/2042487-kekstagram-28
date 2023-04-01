@@ -19,7 +19,6 @@ const submitButton = document.querySelector('.img-upload__submit');
 
 //текст кнопок отправки формы
 
-
 const SUBMIT_BUTTON_TEXT_IDLE = 'Опубликовать';
 const SUBMIT_BUTTON_TEXT_IDLE_SENDING = 'Загружаю...';
 
@@ -34,8 +33,8 @@ const pristine = new Pristine (form, {
 // Закрытие окна редактирования
 
 const closeModal = () => {
-  resetScale();
   resetEffect();
+  resetScale();
   form.reset();
   pristine.reset();
   imageOverlay.classList.add('hidden');
