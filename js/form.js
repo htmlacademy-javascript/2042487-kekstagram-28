@@ -1,9 +1,11 @@
+import {showSuccessPopup , showErrorPopup} from './messages.js';
 import {resetScale} from './scale.js';
 import {resetEffect} from './effects.js';
-
+import {sendData} from './api.js';
 
 const MAX_HASHTAG_LENGTH = 20;
 const MAX_HASHTAG_COUNT = 5;
+
 
 const body = document.body;
 const form = document.querySelector('.img-upload__form');
@@ -12,6 +14,13 @@ const uploadFileInput = form.querySelector('#upload-file');
 const hashtagInput = form.querySelector('.text__hashtags');
 const commentInput = form.querySelector('.text__description');
 const uploadCancel = imageOverlay.querySelector('#upload-cancel');
+const submitButton = document.querySelector('.img-upload__submit');
+
+
+//текст кнопок отправки формы
+
+const SUBMIT_BUTTON_TEXT_IDLE = 'Опубликовать';
+const SUBMIT_BUTTON_TEXT_IDLE_SENDING = 'Загружаю...';
 
 
 const pristine = new Pristine (form, {
@@ -24,15 +33,15 @@ const pristine = new Pristine (form, {
 // Закрытие окна редактирования
 
 const closeModal = () => {
-  resetScale();
   resetEffect();
+  resetScale();
   form.reset();
   pristine.reset();
   imageOverlay.classList.add('hidden');
   body.classList.remove('modal-open');
 
   uploadCancel.removeEventListener('click', closeModal);
-  document.removeEventListener('keydown', onDocumentKeydown);
+  document.removeEventListener('keydown', onDocumentEscapeKeydown);
 };
 
 
@@ -43,7 +52,7 @@ const openModal = () => {
   body.classList.add('modal-open');
 
   uploadCancel.addEventListener('click', closeModal);
-  document.addEventListener('keydown', onDocumentKeydown);
+  document.addEventListener('keydown', onDocumentEscapeKeydown);
 };
 
 
@@ -54,7 +63,7 @@ const isFocusOnInput = () => document.activeElement === hashtagInput || document
 
 // Закрытие окна нажатием клавиши ESC
 
-function onDocumentKeydown (evt) {
+function onDocumentEscapeKeydown (evt) {
   if (evt.key === 'Escape' && !isFocusOnInput()) {
     evt.preventDefault();
     closeModal();
@@ -119,14 +128,44 @@ pristine.addValidator(hashtagInput, isUniqueTags, 'Хэш-теги повтор�
 pristine.addValidator(hashtagInput, isValidLenghth, 'Слишком длинный тег!');
 
 
-// Валидация формы
+// Блокировка кнопки отправки
 
-const onFormSubmit = (evt) => {
-  evt.preventDefault();
-  if (pristine.validate()) {
-    form.submit();
-  }
+const blockSubmitButton = () => {
+  submitButton.disabled = true;
+  submitButton.textContent = SUBMIT_BUTTON_TEXT_IDLE_SENDING;
+};
+
+// Разблокировка кнопки отправки
+
+
+const unblockSubmitButton = () => {
+  submitButton.disabled = false;
+  submitButton.textContent = SUBMIT_BUTTON_TEXT_IDLE;
+};
+
+
+// Отправка формы
+
+const setUserFormSubmit = () => {
+  form.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+
+    if (pristine.validate()) {
+      blockSubmitButton();
+      sendData(new FormData(evt.target))
+        .then(() => {
+          closeModal();
+          showSuccessPopup();
+        })
+        .catch(() => {
+          showErrorPopup();
+        })
+        .finally(unblockSubmitButton);
+    }
+  });
 };
 
 uploadFileInput.addEventListener('change', openModal);
-form.addEventListener('submit', onFormSubmit);
+uploadCancel.addEventListener('click', closeModal);
+
+export {onDocumentEscapeKeydown, setUserFormSubmit};

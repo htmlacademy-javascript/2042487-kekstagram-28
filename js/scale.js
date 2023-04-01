@@ -16,8 +16,8 @@ const getScaleValue = () => parseInt(scaleValueInput.value, 10);
 //Маштабирование превью
 
 const scaleImage = (value) => {
-  previewImage.style.transform = `scale(${value / 100})`;
   scaleValueInput.value = `${value}%`;
+  previewImage.style.transform = `scale(${getScaleValue() / 100})`;
 };
 
 //Уменьшение превью
@@ -41,8 +41,8 @@ const magnifyImage = () => {
   }
   scaleImage(newValue);
 };
-
 const resetScale = () => scaleImage(DEFAULT_SCALE);
+
 
 minifyButton.addEventListener('click', minifyImage);
 magnifyButton.addEventListener('click', magnifyImage);

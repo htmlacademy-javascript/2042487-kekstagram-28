@@ -1,67 +1,67 @@
-const EFFECTS = [
+const Effects = [
   {
-    name: 'none',
-    filter: 'none',
-    range: {
+    NAME: 'none',
+    FILTER: 'none',
+    RANGE: {
       min: 0,
       max: 100,
     },
-    step: 1,
-    unit : ''
+    STEP: 1,
+    UNIT : ''
   },
   {
-    name: 'chrome',
-    filter: 'grayscale',
-    range: {
+    NAME: 'chrome',
+    FILTER: 'grayscale',
+    RANGE: {
       min: 0,
       max: 1,
     },
-    step: 0.1,
-    unit : ''
+    STEP: 0.1,
+    UNIT : ''
   },
   {
-    name: 'sepia',
-    filter: 'sepia',
-    range: {
+    NAME: 'sepia',
+    FILTER: 'sepia',
+    RANGE: {
       min: 0,
       max: 1,
     },
-    step: 0.1,
-    unit : ''
+    STEP: 0.1,
+    UNIT : ''
   },
   {
-    name: 'marvin',
-    filter: 'invert',
-    range: {
+    NAME: 'marvin',
+    FILTER: 'invert',
+    RANGE: {
       min: 0,
       max: 100,
     },
-    step: 1,
-    unit : '%'
+    STEP: 1,
+    UNIT : '%'
   },
   {
-    name: 'phobos',
-    filter: 'blur',
-    range: {
+    NAME: 'phobos',
+    FILTER: 'blur',
+    RANGE: {
       min: 0,
       max: 3,
     },
-    step: 0.1,
-    unit : 'px'
+    STEP: 0.1,
+    UNIT : 'px'
   },
   {
-    name: 'heat',
-    filter: 'brightness',
-    range: {
+    NAME: 'heat',
+    FILTER: 'brightness',
+    RANGE: {
       min: 1,
       max: 3,
     },
-    step: 0.1,
-    unit : ''
+    STEP: 0.1,
+    UNIT : ''
   }
 ];
 
-const DEFAULT_EFFECT = EFFECTS[0];
+const DEFAULT_EFFECT = Effects[0];
 let currentEffect = DEFAULT_EFFECT;
 
 const previewImage = document.querySelector('.img-upload__preview img');
@@ -83,9 +83,9 @@ const hideSlider = () => {
 
 const updateSlider = () => {
   effectSlider.noUiSlider.updateOptions({
-    range: currentEffect.range,
-    step: currentEffect.step,
-    start: currentEffect.range.max,
+    range: currentEffect.RANGE,
+    step: currentEffect.STEP,
+    start: currentEffect.RANGE.max,
   });
 
   if (isDefault()) {
@@ -102,8 +102,8 @@ const onEffectChange = (evt) => {
   if(!evt.target.classList.contains('effects__radio')) {
     return;
   }
-  currentEffect = EFFECTS.find((effect) => effect.name === evt.target.value);
-  previewImage.className = `effects__preview--${currentEffect.name}`;
+  currentEffect = Effects.find((effect) => effect.NAME === evt.target.value);
+  previewImage.className = `effects__preview--${currentEffect.NAME}`;
   updateSlider();
 };
 
@@ -113,7 +113,11 @@ const onEffectChange = (evt) => {
 const onSliderUpdate = () => {
   const sliderValue = effectSlider.noUiSlider.get();
   effectValue.value = sliderValue;
-  previewImage.style.filter = isDefault() ? DEFAULT_EFFECT.filter : `${currentEffect.filter}(${sliderValue}${currentEffect.unit})`;
+  if (isDefault()) {
+    previewImage.style.filter = DEFAULT_EFFECT.FILTER;
+  } else {
+    previewImage.style.filter = `${currentEffect.FILTER}(${sliderValue}${currentEffect.UNIT})`;
+  }
 };
 
 
@@ -125,9 +129,9 @@ const resetEffect = () => {
 };
 
 noUiSlider.create(effectSlider, {
-  range: DEFAULT_EFFECT.range,
-  step: DEFAULT_EFFECT.step,
-  start: DEFAULT_EFFECT.range.max,
+  range: DEFAULT_EFFECT.RANGE,
+  step: DEFAULT_EFFECT.STEP,
+  start: DEFAULT_EFFECT.RANGE.max,
   connect: 'lower',
   format: {
     to: function (value) {
