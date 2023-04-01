@@ -11,7 +11,7 @@ const errorButton = errorPopup.querySelector('.error__button');
 const errorInner = errorPopup.querySelector('.error__inner');
 
 
-//ошибка при получении данных
+// Ошибка при получении данных
 
 const showErrorMeassge = (error) => {
   const messageTemp = errorTemplate.cloneNode(true);

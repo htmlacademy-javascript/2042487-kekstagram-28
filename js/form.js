@@ -14,6 +14,7 @@ const uploadFileInput = form.querySelector('#upload-file');
 const hashtagInput = form.querySelector('.text__hashtags');
 const commentInput = form.querySelector('.text__description');
 const uploadCancel = imageOverlay.querySelector('#upload-cancel');
+const submitButton = document.querySelector('.img-upload__submit');
 
 
 //текст кнопок отправки формы
@@ -131,16 +132,16 @@ pristine.addValidator(hashtagInput, isValidLenghth, 'Слишком длинны
 // Блокировка кнопки отправки
 
 const blockSubmitButton = () => {
-  blockSubmitButton.disabled = true;
-  blockSubmitButton.textContent = SUBMIT_BUTTON_TEXT_IDLE_SENDING;
+  submitButton.disabled = true;
+  submitButton.textContent = SUBMIT_BUTTON_TEXT_IDLE_SENDING;
 };
 
 // Разблокировка кнопки отправки
 
 
 const unblockSubmitButton = () => {
-  blockSubmitButton.disabled = false;
-  blockSubmitButton.textContent = SUBMIT_BUTTON_TEXT_IDLE;
+  submitButton.disabled = false;
+  submitButton.textContent = SUBMIT_BUTTON_TEXT_IDLE;
 };
 
 
