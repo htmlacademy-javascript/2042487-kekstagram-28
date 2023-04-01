@@ -1,11 +1,14 @@
-const GET_URL = 'https://28.javascript.pages.academy/kekstagram/data';
-const SEND_URL = 'https://28.javascript.pages.academy/kekstagram/';
+const BASE_URL = 'https://28.javascript.pages.academy/kekstagram';
+const Route = {
+  GET_DATA: '/data',
+  SEND_DATA: '/',
+};
 
 const ERROR_GET = 'Не удаётся загрузить данные. Проверьте подключение к сети';
 const ERROR_SEND = 'Не удаётся отправить форму. Проверьте подключение к сети';
 
 const load = (route, errorText, method, body = null) =>
-  fetch(route, {method, body})
+  fetch(`${BASE_URL}${route}`, {method, body})
     .then((response) => {
       if (!response.ok) {
         throw new Error();
@@ -16,8 +19,8 @@ const load = (route, errorText, method, body = null) =>
       throw new Error(errorText);
     });
 
-const getData = () => load(GET_URL, ERROR_GET, 'GET');
+const getData = () => load(Route.GET_DATA, ERROR_GET, 'GET');
 
-const sendData = (body) => load(SEND_URL, ERROR_SEND, 'POST', body);
+const sendData = (body) => load(Route.SEND_DATA, ERROR_SEND, 'POST', body);
 
 export {getData, sendData};

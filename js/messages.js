@@ -1,4 +1,4 @@
-import {onFormEscape} from './form.js';
+import {onDocumentEscapeKeydown} from './form.js';
 
 const successTemplate = document.querySelector('#success').content.querySelector('.success');
 const successPopup = successTemplate.cloneNode(true);
@@ -70,7 +70,7 @@ const closeErrorPopup = () => {
   errorPopup.remove();
   document.removeEventListener('keydown', onErrorKeydown);
   document.removeEventListener('click', onErrorClick);
-  document.addEventListener('keydown', onFormEscape);
+  document.addEventListener('keydown', onDocumentEscapeKeydown);
 };
 
 
@@ -105,7 +105,7 @@ const showErrorPopup = () => {
 
   document.addEventListener('keydown', onErrorKeydown);
   document.addEventListener('click', onErrorClick);
-  document.removeEventListener('keydown', onFormEscape);
+  document.removeEventListener('keydown', onDocumentEscapeKeydown);
 };
 
 export {showSuccessPopup , showErrorPopup, showErrorMeassge};

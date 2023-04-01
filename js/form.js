@@ -42,7 +42,7 @@ const closeModal = () => {
   body.classList.remove('modal-open');
 
   uploadCancel.removeEventListener('click', closeModal);
-  document.removeEventListener('keydown', onFormEscape);
+  document.removeEventListener('keydown', onDocumentEscapeKeydown);
 };
 
 
@@ -53,7 +53,7 @@ const openModal = () => {
   body.classList.add('modal-open');
 
   uploadCancel.addEventListener('click', closeModal);
-  document.addEventListener('keydown', onFormEscape);
+  document.addEventListener('keydown', onDocumentEscapeKeydown);
 };
 
 
@@ -64,7 +64,7 @@ const isFocusOnInput = () => document.activeElement === hashtagInput || document
 
 // Закрытие окна нажатием клавиши ESC
 
-function onFormEscape (evt) {
+function onDocumentEscapeKeydown (evt) {
   if (evt.key === 'Escape' && !isFocusOnInput()) {
     evt.preventDefault();
     closeModal();
@@ -169,4 +169,4 @@ const setUserFormSubmit = () => {
 uploadFileInput.addEventListener('change', openModal);
 uploadCancel.addEventListener('click', closeModal);
 
-export {onFormEscape, setUserFormSubmit};
+export {onDocumentEscapeKeydown, setUserFormSubmit};
