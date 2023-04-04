@@ -44,4 +44,17 @@ function createIdGenerator() {
   };
 }
 
-export {GetRandomArrayElement, createRandomIdFromRangeGenerator, getRandomInteger, createIdGenerator};
+
+const sortRandom = () => Math.random() - 0.5;
+
+
+const debounce = (callback, timeoutDelay = 500) => {
+  let timeoutId;
+
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+};
+
+export {GetRandomArrayElement, createRandomIdFromRangeGenerator, getRandomInteger, createIdGenerator, sortRandom, debounce};
