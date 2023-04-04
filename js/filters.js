@@ -16,19 +16,19 @@ const sortByComments = (a, b) => b.comments.length - a.comments.length;
 
 // Сортировки фото
 
-const sortPhotos = (photos, sortButton) => {
+const sortPictures = (pictures, sortButton) => {
   if (sortButton === defaultSortButton) {
-    return photos;
+    return pictures;
   } else if (sortButton === randomSortButton) {
-    return photos.slice().sort(sortRandom).slice(0, RANDOM_PICTURES_COUNT);
+    return pictures.slice().sort(sortRandom).slice(0, RANDOM_PICTURES_COUNT);
   } else if (sortButton === discussedSortButton) {
-    return photos.slice().sort(sortByComments);
+    return pictures.slice().sort(sortByComments);
   }
 };
 
 const removePictures = (pictures) => pictures.forEach((thumbnail) => thumbnail.remove());
 
-const handleSortButtonClick = (event, photos) => {
+const handleSortButtonClick = (event, pictures) => {
   defaultSortButton.classList.remove('img-filters__button--active');
   randomSortButton.classList.remove('img-filters__button--active');
   discussedSortButton.classList.remove('img-filters__button--active');
@@ -36,15 +36,15 @@ const handleSortButtonClick = (event, photos) => {
   sortButton.classList.add('img-filters__button--active');
   const thumbnails = document.querySelectorAll('.picture');
   removePictures(thumbnails);
-  renderThumbnails(sortPhotos(photos, sortButton));
+  renderThumbnails(sortPictures(pictures, sortButton));
 };
 
 
 // Обработчик для сортировки без дребезга
 
-const setDebouncedSort = (photos) => {
+const setDebouncedSort = (pictures) => {
   filterForm.addEventListener('click', debounce((event) => {
-    handleSortButtonClick(event, photos);
+    handleSortButtonClick(event, pictures);
   }, TIMEOUT));
 };
 
