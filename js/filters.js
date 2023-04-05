@@ -28,11 +28,11 @@ const sortPictures = (pictures, sortButton) => {
 
 const removePictures = (pictures) => pictures.forEach((thumbnail) => thumbnail.remove());
 
-const handleSortButtonClick = (event, pictures) => {
+const handleSortButtonClick = (evt, pictures) => {
   defaultSortButton.classList.remove('img-filters__button--active');
   randomSortButton.classList.remove('img-filters__button--active');
   discussedSortButton.classList.remove('img-filters__button--active');
-  const sortButton = event.target;
+  const sortButton = evt.target;
   sortButton.classList.add('img-filters__button--active');
   const thumbnails = document.querySelectorAll('.picture');
   removePictures(thumbnails);
@@ -43,8 +43,8 @@ const handleSortButtonClick = (event, pictures) => {
 // Обработчик для сортировки без дребезга
 
 const setDebouncedSort = (pictures) => {
-  filterForm.addEventListener('click', debounce((event) => {
-    handleSortButtonClick(event, pictures);
+  filterForm.addEventListener('click', debounce((evt) => {
+    handleSortButtonClick(evt, pictures);
   }, TIMEOUT));
 };
 
