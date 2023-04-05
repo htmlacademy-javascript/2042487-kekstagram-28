@@ -135,8 +135,8 @@ const blockSubmitButton = () => {
   submitButton.textContent = SUBMIT_BUTTON_TEXT_IDLE_SENDING;
 };
 
-// Разблокировка кнопки отправки
 
+// Разблокировка кнопки отправки
 
 const unblockSubmitButton = () => {
   submitButton.disabled = false;
