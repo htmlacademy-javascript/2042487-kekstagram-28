@@ -1,5 +1,5 @@
-const ON_LOAD_COMMENTS_NUMBER = 5;
-let actualCommentsCount = ON_LOAD_COMMENTS_NUMBER;
+const START_COMMENTS_NUMBER = 5;
+let actualCommentsCount = START_COMMENTS_NUMBER;
 const bigPicture = document.querySelector('.big-picture');
 const bigPictureImg = bigPicture.querySelector('.big-picture__img').querySelector('img');
 const likesCount = bigPicture.querySelector('.likes-count');
@@ -29,7 +29,7 @@ const createComment = (comment) => {
 const renderComments = (comments) => {
   const commentsFragment = document.createDocumentFragment();
   const moreComments = () => {
-    actualCommentsCount += ON_LOAD_COMMENTS_NUMBER;
+    actualCommentsCount += START_COMMENTS_NUMBER;
     renderComments(comments);
   };
   comments.slice(0, actualCommentsCount).forEach((comment) => {
@@ -53,7 +53,7 @@ const renderComments = (comments) => {
 // Отрисовка большого фото
 
 const renderFullSizePicture = (picture) => {
-  actualCommentsCount = ON_LOAD_COMMENTS_NUMBER;
+  actualCommentsCount = START_COMMENTS_NUMBER;
   commentsList.innerHTML = '';
   bigPictureImg.src = picture.url;
   likesCount.textContent = picture.likes;
