@@ -2,6 +2,7 @@ const MAX_SCALE = 100;
 const MIN_SCALE = 25;
 const STEP_SCALE = 25;
 const DEFAULT_SCALE = 100;
+const PERCENT_MODIFICATOR = 100;
 
 const minifyButton = document.querySelector('.scale__control--smaller');
 const magnifyButton = document.querySelector('.scale__control--bigger');
@@ -17,7 +18,7 @@ const getScaleValue = () => parseInt(scaleValueInput.value, 10);
 
 const scaleImage = (value) => {
   scaleValueInput.value = `${value}%`;
-  previewImage.style.transform = `scale(${getScaleValue() / 100})`;
+  previewImage.style.transform = `scale(${getScaleValue() / PERCENT_MODIFICATOR})`;
 };
 
 //Уменьшение превью
