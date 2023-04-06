@@ -5,7 +5,8 @@ import {sendData} from './api.js';
 
 const MAX_HASHTAG_LENGTH = 20;
 const MAX_HASHTAG_COUNT = 5;
-
+const SUBMIT_BUTTON_TEXT_IDLE = 'Опубликовать';
+const SUBMIT_BUTTON_TEXT_IDLE_SENDING = 'Загружаю...';
 
 const body = document.body;
 const form = document.querySelector('.img-upload__form');
@@ -15,13 +16,6 @@ const hashtagInput = form.querySelector('.text__hashtags');
 const commentInput = form.querySelector('.text__description');
 const uploadCancel = imageOverlay.querySelector('#upload-cancel');
 const submitButton = document.querySelector('.img-upload__submit');
-
-
-//текст кнопок отправки формы
-
-const SUBMIT_BUTTON_TEXT_IDLE = 'Опубликовать';
-const SUBMIT_BUTTON_TEXT_IDLE_SENDING = 'Загружаю...';
-
 
 const pristine = new Pristine (form, {
   classTo: 'img-upload__field-wrapper',

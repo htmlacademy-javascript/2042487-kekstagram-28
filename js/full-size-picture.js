@@ -28,7 +28,7 @@ const createComment = (comment) => {
 
 const renderComments = (comments) => {
   const commentsFragment = document.createDocumentFragment();
-  const moreComments = () => {
+  const getMoreComments = () => {
     actualCommentsCount += START_COMMENTS_NUMBER;
     renderComments(comments);
   };
@@ -44,7 +44,7 @@ const renderComments = (comments) => {
 
   } else {
     commentsLoader.classList.remove('hidden');
-    commentsLoader.onclick = moreComments;
+    commentsLoader.onclick = getMoreComments;
   }
   socialCommentCount.textContent = `${actualCommentsCount} из ${comments.length} комментариев`;
 };
